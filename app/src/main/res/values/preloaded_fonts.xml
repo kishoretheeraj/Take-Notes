@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/archivo_black</item>
+        <item>@font/arimo_italic</item>
+        <item>@font/bangers</item>
+        <item>@font/bungee</item>
+        <item>@font/carter_one</item>
+        <item>@font/caudex_italic</item>
+        <item>@font/imprima</item>
+    </array>
+</resources>

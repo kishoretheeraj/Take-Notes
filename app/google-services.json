@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "16670786756",
+    "firebase_url": "https://take-notes-3a2db.firebaseio.com",
+    "project_id": "take-notes-3a2db",
+    "storage_bucket": "take-notes-3a2db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16670786756:android:9ef9990a4573e8ea67b591",
+        "android_client_info": {
+          "package_name": "com.example.takenotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16670786756-bd6j8h76jkcktkqk0u0s3nag84vorbc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.takenotes",
+            "certificate_hash": "cbd282a37eec7743d9cd059e6e6d20d05cd8ee6c"
+          }
+        },
+        {
+          "client_id": "16670786756-k38nlr7oiqp8ok1jgnhd993gn4qo0es6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnW1SaOH0mvSqqwA2NA9qUz6OwN9ko-u0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16670786756-k38nlr7oiqp8ok1jgnhd993gn4qo0es6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
