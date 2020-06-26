@@ -2,6 +2,7 @@ package com.example.takenotes;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -210,6 +212,54 @@ noteAdapter=new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
                 startActivity(new Intent(this,AddNotes.class));
                 overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
                 break;
+            case R.id.rating:
+                final EditText sendmail=new EditText(nav_view.getContext());
+                final AlertDialog.Builder maildialog=new AlertDialog.Builder(nav_view.getContext());
+                maildialog.setTitle("FEEDBACK");
+                maildialog.setMessage("Enter your Feed back about our Take Notes App :-");
+                maildialog.setView(sendmail);
+
+                maildialog.setPositiveButton("SEND", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //get email and send link
+                        String mailcontent=sendmail.getText().toString();
+                        String mailid="kishoretheeraj.developer@gmail.com";
+                        String mailsub="Feed Back for Take Notes App from"+" "+user.getEmail();
+
+                        Intent email = new Intent(Intent.ACTION_SEND);
+
+
+                        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ mailid});
+                        email.putExtra(Intent.EXTRA_SUBJECT, mailsub);
+                        email.putExtra(Intent.EXTRA_TEXT, mailcontent);
+                        email.setType("text/html");
+                        email.setPackage("com.google.android.gm");
+                        startActivity(Intent.createChooser(email, "Send mail"));
+
+                        //need this to prompts email client only
+                        email.setType("message/rfc822");
+
+                        //startActivity(Intent.createChooser(email, "Choose an Email client :")); // no permission needed for mail
+
+
+
+                    }
+                });
+                maildialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                maildialog.show();
+                break;
+
+            case R.id.shareapp:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://drive.google.com/drive/folders/1mBpIwoBCeXMpA4t1HCxlMXVDX2xhHwVH?usp=sharing")).setPackage("com.google.android.apps.docs");
+                startActivity(browserIntent);
+                break;
+
 
             case R.id.logout:
                 checkuser();
