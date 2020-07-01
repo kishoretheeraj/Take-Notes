@@ -12,7 +12,6 @@
         android:id="@+id/textView"
         android:layout_width="243dp"
         android:layout_height="74dp"
-
         android:fontFamily="@font/archivo_black"
         android:text="LOGIN"
         android:textColor="#ffffff"

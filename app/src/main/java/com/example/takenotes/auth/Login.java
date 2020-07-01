@@ -118,31 +118,33 @@ createacc.setOnClickListener(new View.OnClickListener() {
                 //delete notes first
 
                 progressBar.setVisibility(View.VISIBLE);
-                 if(fauth.getCurrentUser().isAnonymous()){
-                     FirebaseUser user=fauth.getCurrentUser();
 
-                     fstore.collection("notes").document(user.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                         @Override
-                         public void onSuccess(Void aVoid) {
-                             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "All Temporary Notes are Deleted.", Snackbar.LENGTH_LONG);
-                             snackbar.show();
 
-                         }
-                     });
-                     // delete temp user
-                     user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                         @Override
-                         public void onSuccess(Void aVoid) {
-                             Toast.makeText(Login.this, "Temporary User Deleted", Toast.LENGTH_SHORT).show();
-                         }
-                     });
-                 }
 
 
 
                 fauth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+                        if(fauth.getCurrentUser().isAnonymous()){
+                            FirebaseUser user=fauth.getCurrentUser();
+
+                            fstore.collection("notes").document(user.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "All Temporary Notes are Deleted.", Snackbar.LENGTH_LONG);
+                                    snackbar.show();
+
+                                }
+                            });
+                            // delete temp user
+                            user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(Login.this, "Temporary User Deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Log In Successful", Snackbar.LENGTH_LONG);
                         snackbar.show();
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -153,9 +155,7 @@ createacc.setOnClickListener(new View.OnClickListener() {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Log Failed", Snackbar.LENGTH_LONG);
-                        snackbar.show();
-
+                        Toast.makeText(Login.this, "Login failed", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 });

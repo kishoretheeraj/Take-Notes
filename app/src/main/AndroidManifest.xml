@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile"></activity>
+        <activity android:name=".ViewActivity"></activity>
+        <activity
+            android:name=".model.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".model.ImageActivity" />
+        <activity android:name=".profile" />
         <activity
             android:name=".splash"
             android:theme="@style/AppTheme.NoActionBar">
@@ -36,7 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -35,6 +35,7 @@ import com.example.takenotes.Note.editnote;
 import com.example.takenotes.auth.Login;
 import com.example.takenotes.auth.Register;
 import com.example.takenotes.model.Adaptar;
+import com.example.takenotes.model.HomeActivity;
 import com.example.takenotes.model.Note;
 import com.example.takenotes.model.NoteDetails;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -173,7 +174,7 @@ noteAdapter=new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
          toggle.syncState();
 
          noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        noteLists.setAdapter(noteAdapter);
+         noteLists.setAdapter(noteAdapter);
 
         View headerView=nav_view.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.username);
@@ -351,7 +352,13 @@ warning.show();
             checkuser();
 
         }
+        if(item.getItemId()==R.id.image);
+        {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+        }
         return super.onOptionsItemSelected(item);
+
     }
     public  class NoteViewHolder extends  RecyclerView.ViewHolder{
         TextView noteTitle,noteContent;

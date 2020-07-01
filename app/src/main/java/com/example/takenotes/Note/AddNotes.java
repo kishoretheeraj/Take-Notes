@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +40,11 @@ public class AddNotes extends AppCompatActivity {
     EditText noteTitle, noteContent;
     ProgressBar progressBarSave;
     FirebaseUser user;
+    ImageView imageView;
+    Intent data;
     TextToSpeech textToSpeech;
     private static final int RECOGNIZER_RESULT=1;
+   private StorageReference  StorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +52,14 @@ public class AddNotes extends AppCompatActivity {
         setContentView(R.layout.activity_add_notes);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        data=getIntent();
         fstore = FirebaseFirestore.getInstance();
         noteTitle = findViewById(R.id.addNoteTitle);
         noteContent = findViewById(R.id.addNoteContent);
         progressBarSave = findViewById(R.id.progressBar);
-
+        StorageReference= FirebaseStorage.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
-
+        imageView=findViewById(R.id.imageView);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +81,13 @@ public class AddNotes extends AppCompatActivity {
                 note.put("content", nContent);
 
 
+
+
                 docref.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddNotes.this, "Note Added.", Toast.LENGTH_SHORT).show();
+
                         onBackPressed();
 
                     }
@@ -152,10 +160,56 @@ public class AddNotes extends AppCompatActivity {
             noteContent.setText(matches.get(0).toString());
 
         }
+       /* if (requestCode == 1000) {
+            if (resultcode == Activity.RESULT_OK) {
+                Uri imageUri = data.getData();
+                //   profileImage.setImageURI(imageUri);
+                uploadImageToFirebase(imageUri);
+
+
+            }
+        }*/
+
+
+
+
+
             super.onActivityResult(requestCode, resultcode, data);
     }
 
+   /* private void uploadImageToFirebase(Uri imageUri) {
+        final StorageReference fileRef = StorageReference.child("notes/" + (user.getUid())+"/note.jpg");
 
+
+        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(imageView);
+                        StorageReference profileRef = StorageReference.child("notes/" + ("notes/" + (user.getUid())+"/note.jpg"));
+                        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Picasso.get().load(uri).into(imageView);
+                                imageView.setVisibility(View.VISIBLE);
+
+                            }
+                        });
+
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddNotes.this, "Failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }*/
 
 
     private void speak() {
@@ -188,6 +242,12 @@ public class AddNotes extends AppCompatActivity {
             Toast.makeText(this, "Not Saved", Toast.LENGTH_SHORT).show();
             onBackPressed();
         }
+        /*if (item.getItemId()==R.id.image)
+        {
+            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(openGalleryIntent, 1000);
+
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

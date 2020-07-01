@@ -69,5 +69,14 @@
         app:backgroundTint="@color/greenlight"
         app:srcCompat="@drawable/ic_baseline_speaker_24"/>
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="411dp"
+        android:layout_height="614dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/editnotecontent"
+        tools:srcCompat="@tools:sample/avatars" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
