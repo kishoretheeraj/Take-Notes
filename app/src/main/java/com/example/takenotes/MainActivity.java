@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fauth=FirebaseAuth.getInstance();
         user=fauth.getCurrentUser();
 
-
+showwaring();
         Query query=fstore.collection("notes").document(user.getUid()).collection("mynotes").orderBy("title",Query.Direction.DESCENDING);
 
         //query notes> uuid > mynotes
@@ -200,6 +200,31 @@ noteAdapter=new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
         });
 
     }
+    private void showwaring() {
+        if(user.isAnonymous()) {
+            final AlertDialog.Builder warning = new AlertDialog.Builder(this)
+                    .setTitle("Welcome To Take Notes")
+                    .setMessage("To Save Your Notes Please Register With Our App.You Can View Your Notes From Any Devices")
+                    .setPositiveButton("Register Now", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getApplicationContext(), Register.class));
+                            finish();
+                        }
+                    }).setNegativeButton("Register Later", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    });
+
+            warning.show();
+        }
+        else {
+            //nothing
+        }
+
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -276,6 +301,10 @@ noteAdapter=new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
                   Toast.makeText(this, "You are Connected", Toast.LENGTH_SHORT).show();
               }
                 break;
+            case R.id.Info:
+            {
+
+            }
 
             default:
                 Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();

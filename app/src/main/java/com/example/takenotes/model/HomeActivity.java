@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -46,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar t=findViewById(R.id.toolbar);
         setSupportActionBar(t);
         fauth=FirebaseAuth.getInstance();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         user=fauth.getCurrentUser();
         ref= FirebaseDatabase.getInstance().getReference().child(user.getUid());
         inputsearch=findViewById(R.id.search);
@@ -121,5 +123,12 @@ public class HomeActivity extends AppCompatActivity {
         adapter.startListening();
         recyclerView.setAdapter(adapter);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
